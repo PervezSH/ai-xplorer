@@ -1,4 +1,5 @@
 import React from 'react';
+import paramSilderStyles from '../styles/components/ParamSlider.module.scss';
 
 type ParamSliderProps = {
     name: string;
@@ -11,7 +12,7 @@ type ParamSliderProps = {
 
 const ParamSlider: React.FC<ParamSliderProps> = ({ name, value, minValue, maxValue, step, setValue }) => {
     return (
-        <div>
+        <div className={paramSilderStyles.container}>
             <div>
                 <p>{name}</p>
                 <p>{value}</p>

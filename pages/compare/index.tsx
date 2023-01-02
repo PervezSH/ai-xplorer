@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ParamSlider from '../../components/ParamSlider';
 import Image from 'next/image';
+import styles from '../../styles/pages/Compare.module.scss';
 
 const Compare: React.FC = () => {
     const [temperature, setTemperature] = useState<number>(0.5);
@@ -29,8 +30,8 @@ const Compare: React.FC = () => {
     };
 
     return (
-        <>
-            <div>
+        <div className={styles.container}>
+            <div className={styles.row}>
                 <div>
                     <ParamSlider name="Temperature" value={temperature} minValue={0} maxValue={1} step={0.01} setValue={setTemperature} />
                     <ParamSlider name="Top P" value={topP} minValue={0} maxValue={1} step={0.01} setValue={setTopP} />
@@ -42,7 +43,7 @@ const Compare: React.FC = () => {
                     setPrompt(event.target.value);
                 }} />
             </div >
-            <div>
+            <div className={styles.row}>
                 <p>Tokens</p>
                 <p>0</p>
                 <Image src="/images/arrow.svg" alt="Undo last" width={20} height={20} />
@@ -50,7 +51,7 @@ const Compare: React.FC = () => {
                 <button>Submit</button>
             </div>
             {models.map((model, index) => (
-                <div key={model.name}>
+                <div key={model.name} className={styles.row}>
                     <div>
                         <input disabled={true} type="text" placeholder="Output" value={model.output} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             updateModelProps(index, { ...model, output: event.target.value });
@@ -74,7 +75,7 @@ const Compare: React.FC = () => {
                 </div>
             ))}
             <button>Add another model</button>
-        </>
+        </div>
     );
 }
 

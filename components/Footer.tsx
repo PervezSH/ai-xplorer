@@ -1,6 +1,8 @@
+import footerStyles from '../styles/components/Footer.module.scss';
+
 const Footer = () => {
     return (
-        <div>
+        <div className={footerStyles.container}>
             <div>Ai Xplorer</div>
         </div>
     );
