@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import ParamSlider from '../../components/ParamSlider';
+import React, { useEffect, useState } from 'react';
+import type { GetStaticProps } from 'next';
 import Image from 'next/image';
+import ParamSlider from '../../components/ParamSlider';
+import { server } from '../../config';
+import type { ModelData } from '../../utils/model-data';
 import styles from '../../styles/pages/Compare.module.scss';
 
-const Compare = () => {
+type Props = {
+    gpt3Models: ModelData[];
+}
+
+const Compare = ({ gpt3Models }: Props) => {
     const [temperature, setTemperature] = useState<number>(0.5);
     const [topP, setTopP] = useState<number>(0.5);
     const [frequencyPenalty, setFrequencyPenalty] = useState<number>(1);
@@ -28,6 +35,11 @@ const Compare = () => {
             return updatedModels;
         });
     };
+
+    useEffect(() => {
+        console.log(gpt3Models);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -59,7 +71,11 @@ const Compare = () => {
                         <p>4 prompt + 81 completion = 85 tokens ($0.002)</p>
                     </div>
                     <div>
-                        <button>text-davinci-003</button>
+                        <select>
+                            {gpt3Models.map(model => (
+                                <option key={model.id} value={model.id}>{model.id}</option>
+                            ))}
+                        </select>
                         <ParamSlider name="Max Tokens" value={model.tokens} minValue={1} maxValue={model.maxTokens} step={1} setValue={(value: number) => {
                             updateModelProps(index, { ...model, tokens: value });
                         }} />
@@ -77,6 +93,17 @@ const Compare = () => {
             <button>Add another model</button>
         </div>
     );
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+    const res = await fetch(`${server}/api/gpt3-models`);
+    const gpt3Models = await res.json();
+
+    return {
+        props: {
+            gpt3Models,
+        }
+    }
 }
 
 export default Compare;
