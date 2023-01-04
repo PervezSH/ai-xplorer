@@ -10,7 +10,7 @@ type ParamSliderProps = {
     setValue: (value: number) => void;
 }
 
-const ParamSlider: React.FC<ParamSliderProps> = ({ name, value, minValue, maxValue, step, setValue }) => {
+const ParamSlider = ({ name, value, minValue, maxValue, step, setValue }: ParamSliderProps) => {
     return (
         <div className={paramSilderStyles.container}>
             <div>

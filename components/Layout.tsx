@@ -3,7 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import layoutStyles from "../styles/components/Layout.module.scss";
 
-const Layout: React.FC<any> = ({ children }) => {
+const Layout = ({ children }: any) => {
     return (
         <div className={layoutStyles.container}>
             <Header />

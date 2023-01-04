@@ -3,7 +3,7 @@ import ParamSlider from '../../components/ParamSlider';
 import Image from 'next/image';
 import styles from '../../styles/pages/Compare.module.scss';
 
-const Compare: React.FC = () => {
+const Compare = () => {
     const [temperature, setTemperature] = useState<number>(0.5);
     const [topP, setTopP] = useState<number>(0.5);
     const [frequencyPenalty, setFrequencyPenalty] = useState<number>(1);
