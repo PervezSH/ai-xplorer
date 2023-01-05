@@ -1,7 +1,7 @@
-type ModelProps = {
+type CompareInfo = {
     name: string;
-    tokens: number;
     maxTokens: number;
+    tokens: number;
     maxCreditUsage: number;
     elaspedTime: number;
     output: string;

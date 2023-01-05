@@ -3,11 +3,11 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import ParamSlider from '../../components/ParamSlider';
 import { server } from '../../config';
-import type { ModelData } from '../../utils/model-data';
+import type { ModelDetails } from '../../utils/model-data';
 import styles from '../../styles/pages/Compare.module.scss';
 
 type Props = {
-    gpt3Models: ModelData[];
+    gpt3Models: ModelDetails[];
 }
 
 const Compare = ({ gpt3Models }: Props) => {
@@ -17,21 +17,36 @@ const Compare = ({ gpt3Models }: Props) => {
     const [presencePenalty, setPresencePenalty] = useState<number>(1);
     const [bestOf, setBestOf] = useState<number>(10);
     const [prompt, setPrompt] = useState<string>("");
-    const [models, setModels] = useState<ModelProps[]>([
+    const [modelsToCompare, setModelsToCompare] = useState<CompareInfo[]>([
         {
-            name: "text-davinci-003",
-            tokens: 2000,
-            maxTokens: 4000,
+            name: gpt3Models[0].id,
+            maxTokens: gpt3Models[0].max,
+            tokens: 256,
             maxCreditUsage: 0,
             elaspedTime: 0,
             output: ""
         }
     ]);
 
-    const updateModelProps = (index: number, model: ModelProps) => {
-        setModels(prevModels => {
+    const updateModelProps = (index: number, model: CompareInfo) => {
+        setModelsToCompare(prevModels => {
             const updatedModels = [...prevModels];
             updatedModels[index] = model;
+            return updatedModels;
+        });
+    };
+
+    const addModelToCompare = () => {
+        setModelsToCompare(prevModels => {
+            const updatedModels = [...prevModels];
+            updatedModels.push({
+                name: gpt3Models[modelsToCompare.length].id,
+                maxTokens: gpt3Models[modelsToCompare.length].max,
+                tokens: 256,
+                maxCreditUsage: 0,
+                elaspedTime: 0,
+                output: ""
+            });
             return updatedModels;
         });
     };
@@ -62,7 +77,7 @@ const Compare = ({ gpt3Models }: Props) => {
                 <Image src="/images/arrow.svg" alt="Regenerate" width={20} height={20} />
                 <button>Submit</button>
             </div>
-            {models.map((model, index) => (
+            {modelsToCompare.map((model, index) => (
                 <div key={model.name} className={styles.row}>
                     <div>
                         <input disabled={true} type="text" placeholder="Output" value={model.output} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,9 +86,9 @@ const Compare = ({ gpt3Models }: Props) => {
                         <p>4 prompt + 81 completion = 85 tokens ($0.002)</p>
                     </div>
                     <div>
-                        <select>
-                            {gpt3Models.map(model => (
-                                <option key={model.id} value={model.id}>{model.id}</option>
+                        <select value={model.name}>
+                            {gpt3Models.map(gpt3Model => (
+                                <option key={gpt3Model.id} value={gpt3Model.id}>{gpt3Model.id}</option>
                             ))}
                         </select>
                         <ParamSlider name="Max Tokens" value={model.tokens} minValue={1} maxValue={model.maxTokens} step={1} setValue={(value: number) => {
@@ -81,16 +96,20 @@ const Compare = ({ gpt3Models }: Props) => {
                         }} />
                         <div>
                             <p>Max Credit Usage</p>
-                            <p>0.002$</p>
+                            <p>{`${model.maxCreditUsage} $`}</p>
                         </div>
                         <div>
                             <p>Elapsed Time</p>
-                            <p>0.689 seconds</p>
+                            <p>{`${model.elaspedTime} seconds`}</p>
                         </div>
                     </div>
                 </div>
             ))}
-            <button>Add another model</button>
+            {modelsToCompare.length < gpt3Models.length &&
+                <button onClick={addModelToCompare}>
+                    Add another model
+                </button>
+            }
         </div>
     );
 }
