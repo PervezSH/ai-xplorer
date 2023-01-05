@@ -71,6 +71,15 @@ const Compare = ({ gpt3Models }: Props) => {
         });
     };
 
+    const removeModelFromCompare = (name: string) => {
+        setModelsToCompare(prevModels => {
+            const updatedModels = [...prevModels];
+            const index = updatedModels.findIndex(model => model.name === name);
+            updatedModels.splice(index, 1);
+            return updatedModels;
+        });
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.row}>
@@ -117,6 +126,7 @@ const Compare = ({ gpt3Models }: Props) => {
                             <p>Elapsed Time</p>
                             <p>{`${model.elaspedTime} seconds`}</p>
                         </div>
+                        <button onClick={() => removeModelFromCompare(model.name)}>Close</button>
                     </div>
                 </div>
             ))}
