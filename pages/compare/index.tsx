@@ -28,7 +28,7 @@ const Compare = ({ gpt3Models }: Props) => {
         }
     ]);
 
-    const updateModelProps = (index: number, model: CompareInfo) => {
+    const updateCompareInfo = (index: number, model: CompareInfo) => {
         setModelsToCompare(prevModels => {
             const updatedModels = [...prevModels];
             updatedModels[index] = model;
@@ -36,12 +36,32 @@ const Compare = ({ gpt3Models }: Props) => {
         });
     };
 
+    const handleModelChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+        const modelExists = modelsToCompare.some(model => model.name === event.target.value);
+        if (modelExists) return;
+        const gpt3model = gpt3Models.find(model => model.id === event.target.value);
+        if (gpt3model) {
+            updateCompareInfo(index, {
+                name: gpt3model.id,
+                maxTokens: gpt3model.max,
+                tokens: 256,
+                maxCreditUsage: 0,
+                elaspedTime: 0,
+                output: "",
+            });
+        }
+    };
+
     const addModelToCompare = () => {
+        const modelsAvaiableToCompare = gpt3Models.filter(
+            model => !modelsToCompare.some(modelToCompare => modelToCompare.name === model.id)
+        )
+        if (modelsAvaiableToCompare.length === 0) return;
         setModelsToCompare(prevModels => {
             const updatedModels = [...prevModels];
             updatedModels.push({
-                name: gpt3Models[modelsToCompare.length].id,
-                maxTokens: gpt3Models[modelsToCompare.length].max,
+                name: modelsAvaiableToCompare[0].id,
+                maxTokens: modelsAvaiableToCompare[0].max,
                 tokens: 256,
                 maxCreditUsage: 0,
                 elaspedTime: 0,
@@ -50,11 +70,6 @@ const Compare = ({ gpt3Models }: Props) => {
             return updatedModels;
         });
     };
-
-    useEffect(() => {
-        console.log(gpt3Models);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
         <div className={styles.container}>
@@ -81,18 +96,18 @@ const Compare = ({ gpt3Models }: Props) => {
                 <div key={model.name} className={styles.row}>
                     <div>
                         <input disabled={true} type="text" placeholder="Output" value={model.output} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            updateModelProps(index, { ...model, output: event.target.value });
+                            updateCompareInfo(index, { ...model, output: event.target.value });
                         }} />
                         <p>4 prompt + 81 completion = 85 tokens ($0.002)</p>
                     </div>
                     <div>
-                        <select value={model.name}>
+                        <select value={model.name} onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleModelChange(index, event)}>
                             {gpt3Models.map(gpt3Model => (
                                 <option key={gpt3Model.id} value={gpt3Model.id}>{gpt3Model.id}</option>
                             ))}
                         </select>
                         <ParamSlider name="Max Tokens" value={model.tokens} minValue={1} maxValue={model.maxTokens} step={1} setValue={(value: number) => {
-                            updateModelProps(index, { ...model, tokens: value });
+                            updateCompareInfo(index, { ...model, tokens: value });
                         }} />
                         <div>
                             <p>Max Credit Usage</p>
