@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import ParamSlider from '../../components/ParamSlider';
-import { server } from '../../config';
+import config from '../../config';
 import type { ModelDetails } from '../../utils/model-data';
 import styles from '../../styles/pages/Compare.module.scss';
 
@@ -140,7 +140,7 @@ const Compare = ({ gpt3Models }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const res = await fetch(`${server}/api/gpt3-models`);
+    const res = await fetch(`${config.url}/api/gpt3-models`);
     const gpt3Models = await res.json();
 
     return {
