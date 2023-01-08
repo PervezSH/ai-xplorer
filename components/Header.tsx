@@ -1,11 +1,12 @@
 import headerStyles from '../styles/components/Header.module.scss';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useApiKey } from '../context/ApiKeyContext';
 
 const Header = () => {
-    const [apiKey, setApiKey] = useState<string>("");
-    const [keyEntered, setKeyEntered] = useState<boolean>(false);
-    const [inUpdateMode, setInUpdateMode] = useState<boolean>(true);
+    const { apiKey, setApiKey } = useApiKey();
+    const [keyEntered, setKeyEntered] = useState<boolean>(apiKey.length > 0 ? true : false);
+    const [inUpdateMode, setInUpdateMode] = useState<boolean>(apiKey.length > 0 ? false : true);
 
     return (
         <div className={headerStyles.container}>
