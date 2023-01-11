@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const openai = new OpenAIApi(configuration);
 
-    const promises = req.body.modelsToCompare.map(async (model: CompareInfo) => {
+    const promises = req.body.modelsToCompare.map(async (model: ICompareInfo) => {
         try {
             const start = performance.now();
             const completion = await openai.createCompletion({

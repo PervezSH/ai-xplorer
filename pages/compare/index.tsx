@@ -3,11 +3,11 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import ParamSlider from '../../components/ParamSlider';
 import config from '../../config';
-import type { ModelDetails } from '../../utils/model-data';
+import { IModelDetails } from '../../utils/model-data';
 import styles from '../../styles/pages/Compare.module.scss';
 
 type Props = {
-    gpt3Models: ModelDetails[];
+    gpt3Models: IModelDetails[];
 }
 
 const Compare = ({ gpt3Models }: Props) => {
@@ -17,18 +17,21 @@ const Compare = ({ gpt3Models }: Props) => {
     const [presencePenalty, setPresencePenalty] = useState<number>(1);
     const [bestOf, setBestOf] = useState<number>(10);
     const [prompt, setPrompt] = useState<string>("");
-    const [modelsToCompare, setModelsToCompare] = useState<CompareInfo[]>([
+    const [modelsToCompare, setModelsToCompare] = useState<ICompareInfo[]>([
         {
             name: gpt3Models[0].id,
             maxTokens: gpt3Models[0].max,
             tokens: 256,
             maxCreditUsage: 0,
+            creditUsage: 0,
             elaspedTime: 0,
             output: ""
         }
     ]);
 
-    const updateCompareInfo = (index: number, model: CompareInfo) => {
+    const [isCompleting, setIsCompleting] = useState<boolean>(false);
+
+    const updateCompareInfo = (index: number, model: ICompareInfo) => {
         setModelsToCompare(prevModels => {
             const updatedModels = [...prevModels];
             updatedModels[index] = model;
@@ -46,6 +49,7 @@ const Compare = ({ gpt3Models }: Props) => {
                 maxTokens: gpt3model.max,
                 tokens: 256,
                 maxCreditUsage: 0,
+                creditUsage: 0,
                 elaspedTime: 0,
                 output: "",
             });
@@ -64,6 +68,7 @@ const Compare = ({ gpt3Models }: Props) => {
                 maxTokens: modelsAvaiableToCompare[0].max,
                 tokens: 256,
                 maxCreditUsage: 0,
+                creditUsage: 0,
                 elaspedTime: 0,
                 output: ""
             });
@@ -99,7 +104,7 @@ const Compare = ({ gpt3Models }: Props) => {
                 <p>0</p>
                 <Image src="/images/arrow.svg" alt="Undo last" width={20} height={20} />
                 <Image src="/images/arrow.svg" alt="Regenerate" width={20} height={20} />
-                <button>Submit</button>
+                <button disabled={isCompleting} onClick={() => console.log("hello")}>Submit</button>
             </div>
             {modelsToCompare.map((model, index) => (
                 <div key={model.name} className={styles.row}>

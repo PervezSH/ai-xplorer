@@ -1,4 +1,4 @@
-export type ModelDetails = {
+export interface IModelDetails {
     id: string;
     base: string;
     max: number;
@@ -7,7 +7,7 @@ export type ModelDetails = {
     goodAt: string;
 }
 
-export const gpt3Models: ModelDetails[] = [
+export const gpt3Models: IModelDetails[] = [
     {
         id: "text-davinci-003",
         base: "Davinci",
