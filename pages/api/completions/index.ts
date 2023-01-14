@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const openai = new OpenAIApi(configuration);
 
-    const promises = req.body.modelsToCompare.map(async (model: ICompareInfo) => {
+    const promises = req.body.modelsToCompare.map(async (model: ICompareInfo): Promise<ICompletionResult> => {
         try {
             const start = performance.now();
             const completion = await openai.createCompletion({
@@ -30,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const totalTokens = promptTokens && completionTokens ? promptTokens + completionTokens : undefined;
 
             return {
-                model: model.name,
+                modelName: model.name,
                 elapsedTime: elapsedTime,
                 outputText: outputText,
                 promptTokens: promptTokens,
