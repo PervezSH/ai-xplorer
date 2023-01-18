@@ -1,5 +1,25 @@
 .container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   margin: 0px 120px;
+
+  .bg-illustration-wrapper {
+    position: relative;
+    overflow-x: clip;
+
+    .bg-illustration {
+      position: absolute;
+      top: 0px;
+      z-index: -1;
+    }
+  }
+
+  main {
+    margin-top: 192px;
+  }
+
+  .filler {
+    margin: auto;
+  }
 }

@@ -7,6 +7,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 15px;
+  margin-bottom: 50px;
 
   .api-key-container {
     display: flex;
@@ -14,6 +15,7 @@
     align-items: flex-end;
     margin-top: 10px;
     gap: 15px;
+    // position: relative;
 
     .api-key-button {
       display: flex;
@@ -28,6 +30,8 @@
     }
 
     div {
+      position: absolute;
+      top: 64px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
