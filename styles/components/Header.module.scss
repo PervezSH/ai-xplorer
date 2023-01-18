@@ -1,23 +1,47 @@
+@import "../config";
+@import "../buttons";
+@import "../inputs";
+
 .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  .api-key-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10px;
+    gap: 15px;
 
-    .api-key-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-
-        .api-key-button {
-            width: fit-content;
-        }
-
-        div {
-            display: flex;
-            flex-direction: column;
-
-            button {
-                width: fit-content;
-            }
-        }
+    .api-key-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      font-size: 18px;
+      text-shadow: 0px 10px 10px $font-tertiary-color;
     }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 25px;
+      gap: 15px;
+
+      background: $bg-primary-color;
+      box-shadow: 0px 10px 20px $font-tertiary-color;
+      border-radius: 25px;
+
+      p {
+        font-size: 14px;
+        color: $font-tertiary-color;
+      }
+    }
+  }
 }
