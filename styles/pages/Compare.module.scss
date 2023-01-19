@@ -1,9 +1,14 @@
-.container {
-    display: flex;
-    flex-direction: column;
+@import "../config";
+@import "../buttons";
+@import "../textareas";
 
-    .row {
-        display: flex;
-        flex-direction: row;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

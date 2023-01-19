@@ -207,11 +207,11 @@ const Compare = ({ gpt3Models }: Props) => {
             setValue={setBestOf}
           />
         </div>
-        <input
-          type="text"
+        <textarea
+          className={styles["text-input"]}
           placeholder="Enter you prompt here"
           value={prompt}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setPrompt(event.target.value);
           }}
         />
@@ -235,25 +235,23 @@ const Compare = ({ gpt3Models }: Props) => {
       </div>
       {modelsToCompare.map((model, index) => (
         <div key={model.name} className={styles.row}>
-          <div>
-            <input
-              disabled={true}
-              type="text"
-              placeholder="Output"
-              value={model.output}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                updateCompareInfo(index, {
-                  ...model,
-                  output: event.target.value,
-                });
-              }}
-            />
-            <p>{`${model.promptTokens} prompt + ${
-              model.completionTokens
-            } completion = ${
-              model.totalTokens
-            } tokens ($${model.creditUsage.toFixed(4)})`}</p>
-          </div>
+          <textarea
+            className={styles["text-output"]}
+            disabled={true}
+            placeholder="Output"
+            value={model.output}
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+              updateCompareInfo(index, {
+                ...model,
+                output: event.target.value,
+              });
+            }}
+          />
+          <p>{`${model.promptTokens} prompt + ${
+            model.completionTokens
+          } completion = ${
+            model.totalTokens
+          } tokens ($${model.creditUsage.toFixed(4)})`}</p>
           <div>
             <select
               value={model.name}
