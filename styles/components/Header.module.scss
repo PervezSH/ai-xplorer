@@ -26,6 +26,10 @@
       font-weight: 600;
       font-size: 18px;
       text-shadow: 0px 10px 10px $font-tertiary-color;
+
+      img {
+        filter: drop-shadow(0px 10px 5px $font-tertiary-color);
+      }
     }
 
     div {
