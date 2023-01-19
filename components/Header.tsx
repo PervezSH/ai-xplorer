@@ -49,7 +49,6 @@ const Header = () => {
           <div>
             <p>To get started, add your OpenAI API Key!</p>
             <input
-              className={headerStyles["in-secondary"]}
               type="text"
               placeholder="Enter here..."
               value={apiKey}
