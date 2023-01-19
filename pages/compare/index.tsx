@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import { Caveat } from "@next/font/google";
+
 import ParamSlider from "../../components/ParamSlider";
 import config from "../../config";
 import { IModelDetails } from "../../utils/model-data";
 import styles from "../../styles/pages/Compare.module.scss";
 import { useApiKey } from "../../context/ApiKeyContext";
+
+const caveat = Caveat({ subsets: ["latin"] });
 
 type Props = {
   gpt3Models: IModelDetails[];
@@ -216,22 +220,27 @@ const Compare = ({ gpt3Models }: Props) => {
           }}
         />
       </div>
-      <div className={styles.row}>
-        <p>Tokens</p>
-        <p>0</p>
-        <Image src="/images/arrow.svg" alt="Undo last" width={20} height={20} />
-        <Image
-          src="/images/arrow.svg"
-          alt="Regenerate"
-          width={20}
-          height={20}
-        />
-        <button
-          disabled={isCompleting}
-          onClick={() => callCompletionEndpoint()}
-        >
-          Submit
-        </button>
+      <div className={styles["btn-section"]}>
+        <div>
+          <p className={caveat.className}>Tokens</p>
+          <div>{`${`0`}`}</div>
+        </div>
+        <div>
+          <Image src="/images/undo.png" alt="undo" width={32} height={32} />
+          <Image
+            src="/images/regenerate.png"
+            alt="regenerate"
+            width={32}
+            height={32}
+          />
+          <button
+            className={styles["btn-primary"]}
+            disabled={isCompleting}
+            onClick={() => callCompletionEndpoint()}
+          >
+            Submit
+          </button>
+        </div>
       </div>
       {modelsToCompare.map((model, index) => (
         <div key={model.name} className={styles.row}>
