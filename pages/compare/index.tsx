@@ -244,23 +244,25 @@ const Compare = ({ gpt3Models }: Props) => {
       </div>
       {modelsToCompare.map((model, index) => (
         <div key={model.name} className={styles.row}>
-          <textarea
-            className={styles["text-output"]}
-            disabled={true}
-            placeholder="Output"
-            value={model.output}
-            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-              updateCompareInfo(index, {
-                ...model,
-                output: event.target.value,
-              });
-            }}
-          />
-          <p>{`${model.promptTokens} prompt + ${
-            model.completionTokens
-          } completion = ${
-            model.totalTokens
-          } tokens ($${model.creditUsage.toFixed(4)})`}</p>
+          <div className={styles["output-wrapper"]}>
+            <textarea
+              className={styles["text-output"]}
+              disabled={true}
+              placeholder="Output"
+              value={model.output}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                updateCompareInfo(index, {
+                  ...model,
+                  output: event.target.value,
+                });
+              }}
+            />
+            <p className={caveat.className}>{`${model.promptTokens} prompt + ${
+              model.completionTokens
+            } completion = ${
+              model.totalTokens
+            } tokens ($${model.creditUsage.toFixed(4)})`}</p>
+          </div>
           <div>
             <select
               value={model.name}
