@@ -10,6 +10,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 288px;
+    gap: 16px;
+    background: $bg-primary-color;
   }
 
   .btn-section {

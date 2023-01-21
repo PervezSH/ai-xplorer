@@ -169,7 +169,7 @@ const Compare = ({ gpt3Models }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <div>
+        <div className={styles["slider-wrapper"]}>
           <ParamSlider
             name="Temperature"
             value={temperature}
