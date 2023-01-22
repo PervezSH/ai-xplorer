@@ -243,61 +243,83 @@ const Compare = ({ gpt3Models }: Props) => {
         </div>
       </div>
       {modelsToCompare.map((model, index) => (
-        <div key={model.name} className={styles.row}>
-          <div className={styles["output-wrapper"]}>
-            <textarea
-              className={styles["text-output"]}
-              disabled={true}
-              placeholder="Output"
-              value={model.output}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                updateCompareInfo(index, {
-                  ...model,
-                  output: event.target.value,
-                });
-              }}
-            />
-            <p className={caveat.className}>{`${model.promptTokens} prompt + ${
-              model.completionTokens
-            } completion = ${
-              model.totalTokens
-            } tokens ($${model.creditUsage.toFixed(4)})`}</p>
-          </div>
-          <div>
-            <select
-              value={model.name}
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                handleModelChange(index, event)
-              }
-            >
-              {gpt3Models.map((gpt3Model) => (
-                <option key={gpt3Model.id} value={gpt3Model.id}>
-                  {gpt3Model.id}
-                </option>
-              ))}
-            </select>
-            <ParamSlider
-              name="Max Tokens"
-              value={model.tokens}
-              minValue={1}
-              maxValue={model.maxTokens}
-              step={1}
-              setValue={(value: number) => {
-                updateCompareInfo(index, { ...model, tokens: value });
-              }}
-            />
-            <div>
-              <p>Max Credit Usage</p>
-              <p>{`${model.maxCreditUsage.toFixed(3)} $`}</p>
+        <div key={model.name}>
+          <div className={styles.row}>
+            <div className={styles["output-wrapper"]}>
+              <textarea
+                className={styles["text-output"]}
+                disabled={true}
+                placeholder="Output"
+                value={model.output}
+                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  updateCompareInfo(index, {
+                    ...model,
+                    output: event.target.value,
+                  });
+                }}
+              />
+              <p className={caveat.className}>{`${
+                model.promptTokens
+              } prompt + ${model.completionTokens} completion = ${
+                model.totalTokens
+              } tokens ($${model.creditUsage.toFixed(4)})`}</p>
             </div>
-            <div>
-              <p>Elapsed Time</p>
-              <p>{`${model.elapsedTime.toFixed(3)} seconds`}</p>
+            <div className={styles["output-info-wrapper"]}>
+              <select
+                value={model.name}
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                  handleModelChange(index, event)
+                }
+              >
+                {gpt3Models.map((gpt3Model) => (
+                  <option key={gpt3Model.id} value={gpt3Model.id}>
+                    {gpt3Model.id}
+                  </option>
+                ))}
+              </select>
+              <ParamSlider
+                name="Max Tokens"
+                value={model.tokens}
+                minValue={1}
+                maxValue={model.maxTokens}
+                step={1}
+                setValue={(value: number) => {
+                  updateCompareInfo(index, { ...model, tokens: value });
+                }}
+              />
+              <div className={styles["details-container"]}>
+                <div>
+                  <Image
+                    src="/images/dollar.png"
+                    alt="dollar"
+                    width={24}
+                    height={24}
+                  />
+                  <p className={caveat.className}>Max Credit Usage</p>
+                </div>
+                <p>{`${model.maxCreditUsage.toFixed(3)} $`}</p>
+              </div>
+              <div className={styles["details-container"]}>
+                <div>
+                  <Image
+                    src="/images/clock.png"
+                    alt="clock"
+                    width={24}
+                    height={24}
+                  />
+                  <p className={caveat.className}>Elapsed Time</p>
+                </div>
+                <p>{`${model.elapsedTime.toFixed(3)} seconds`}</p>
+              </div>
+              <button
+                className={styles["btn-secondary"]}
+                onClick={() => removeModelFromCompare(model.name)}
+              >
+                Close
+              </button>
             </div>
-            <button onClick={() => removeModelFromCompare(model.name)}>
-              Close
-            </button>
           </div>
+          <div className={styles["blank-space"]}></div>
         </div>
       ))}
       {modelsToCompare.length < gpt3Models.length && (

@@ -86,4 +86,39 @@
       color: $font-tertiary-color;
     }
   }
+
+  .output-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 288px;
+
+    .details-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      div {
+        display: inline-flex;
+        gap: 10px;
+
+        p {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          color: $font-tertiary-color;
+        }
+      }
+
+      p {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .blank-space {
+    height: 64px;
+  }
 }
