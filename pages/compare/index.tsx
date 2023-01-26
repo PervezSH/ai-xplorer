@@ -323,7 +323,9 @@ const Compare = ({ gpt3Models }: Props) => {
         </div>
       ))}
       {modelsToCompare.length < gpt3Models.length && (
-        <button onClick={addModelToCompare}>Add another model</button>
+        <button className={styles["btn-secondary"]} onClick={addModelToCompare}>
+          Add another model
+        </button>
       )}
     </div>
   );
