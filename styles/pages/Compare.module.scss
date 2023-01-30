@@ -116,10 +116,24 @@
         font-size: 14px;
       }
     }
+
+    .select-wrapper {
+      select {
+        width: 100%;
+        outline: none;
+
+        option {
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+    }
   }
 
   button {
     height: 48px;
+    width: 50%;
     border-radius: 50px;
     font-style: normal;
     font-size: 16px;

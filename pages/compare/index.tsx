@@ -8,6 +8,7 @@ import config from "../../config";
 import { IModelDetails } from "../../utils/model-data";
 import styles from "../../styles/pages/Compare.module.scss";
 import { useApiKey } from "../../context/ApiKeyContext";
+import Dropdown from "../../components/Dropdown";
 
 const caveat = Caveat({ subsets: ["latin"] });
 
@@ -17,6 +18,8 @@ type Props = {
 
 const Compare = ({ gpt3Models }: Props) => {
   const { apiKey } = useApiKey();
+
+  const modelOptions = gpt3Models.map((model) => model.id);
 
   const [temperature, setTemperature] = useState<number>(0.5);
   const [topP, setTopP] = useState<number>(0.5);
@@ -49,19 +52,14 @@ const Compare = ({ gpt3Models }: Props) => {
     });
   };
 
-  const handleModelChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleModelChange = (atIndex: number, toModelWithName: string) => {
     const modelExists = modelsToCompare.some(
-      (model) => model.name === event.target.value
+      (model) => model.name === toModelWithName
     );
     if (modelExists) return;
-    const gpt3model = gpt3Models.find(
-      (model) => model.id === event.target.value
-    );
+    const gpt3model = gpt3Models.find((model) => model.id === toModelWithName);
     if (gpt3model) {
-      updateCompareInfo(index, {
+      updateCompareInfo(atIndex, {
         name: gpt3model.id,
         maxTokens: gpt3model.max,
         tokens: 256,
@@ -265,18 +263,12 @@ const Compare = ({ gpt3Models }: Props) => {
               } tokens ($${model.creditUsage.toFixed(4)})`}</p>
             </div>
             <div className={styles["output-info-wrapper"]}>
-              <select
-                value={model.name}
-                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                  handleModelChange(index, event)
-                }
-              >
-                {gpt3Models.map((gpt3Model) => (
-                  <option key={gpt3Model.id} value={gpt3Model.id}>
-                    {gpt3Model.id}
-                  </option>
-                ))}
-              </select>
+              <Dropdown
+                selectedOption={model.name}
+                options={modelOptions}
+                modelIndex={index}
+                onSelect={handleModelChange}
+              />
               <ParamSlider
                 name="Max Tokens"
                 value={model.tokens}
