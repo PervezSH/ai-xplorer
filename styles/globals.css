@@ -8,6 +8,11 @@ body {
   background: #f0f4ff;
 }
 
+::selection {
+  background-color: #97a8ff;
+  color: #f0f4ff;
+}
+
 button,
 select {
   cursor: pointer;
