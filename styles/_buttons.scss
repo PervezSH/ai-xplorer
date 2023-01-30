@@ -12,6 +12,12 @@
     transform: scale(0.98);
     box-shadow: none;
   }
+
+  &:disabled {
+    transform: scale(0.98);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
 }
 
 .btn-primary {
