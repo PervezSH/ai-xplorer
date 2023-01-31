@@ -35,7 +35,12 @@ const ParamSlider = ({
             setValue(Number(event.target.value));
           }}
         />
-        <div className={paramSilderStyles.fill}></div>
+        <div
+          style={{
+            width: `${((value - minValue) / (maxValue - minValue)) * 100}%`,
+          }}
+          className={paramSilderStyles.fill}
+        ></div>
       </div>
     </div>
   );
