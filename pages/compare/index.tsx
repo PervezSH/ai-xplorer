@@ -21,11 +21,11 @@ const Compare = ({ gpt3Models }: Props) => {
 
   const modelOptions = gpt3Models.map((model) => model.id);
 
-  const [temperature, setTemperature] = useState<number>(0.5);
-  const [topP, setTopP] = useState<number>(0.5);
-  const [frequencyPenalty, setFrequencyPenalty] = useState<number>(1);
-  const [presencePenalty, setPresencePenalty] = useState<number>(1);
-  const [bestOf, setBestOf] = useState<number>(10);
+  const [temperature, setTemperature] = useState<number>(0.7);
+  const [topP, setTopP] = useState<number>(1);
+  const [frequencyPenalty, setFrequencyPenalty] = useState<number>(0);
+  const [presencePenalty, setPresencePenalty] = useState<number>(0);
+  const [bestOf, setBestOf] = useState<number>(1);
   const [prompt, setPrompt] = useState<string>("");
   const [modelsToCompare, setModelsToCompare] = useState<ICompareInfo[]>([
     {
@@ -224,13 +224,13 @@ const Compare = ({ gpt3Models }: Props) => {
           <div>{`${`0`}`}</div>
         </div>
         <div>
-          <Image src="/images/undo.png" alt="undo" width={32} height={32} />
+          {/* <Image src="/images/undo.png" alt="undo" width={32} height={32} />
           <Image
             src="/images/regenerate.png"
             alt="regenerate"
             width={32}
             height={32}
-          />
+          /> */}
           <button
             className={styles["btn-primary"]}
             disabled={isCompleting}
