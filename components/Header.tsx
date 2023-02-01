@@ -47,7 +47,14 @@ const Header = () => {
         )}
         {inUpdateMode && !keyEntered && (
           <div>
-            <p>To get started, add your OpenAI API Key!</p>
+            <p>
+              To get started, add your OpenAI API Key!
+              <span>
+                The key will not be stored remotely. Please feel free to review
+                it yourself{" "}
+                <a href="https://github.com/PervezSH/ai-xplorer">here</a>.
+              </span>
+            </p>
             <input
               type="text"
               placeholder="Enter here..."
@@ -55,7 +62,7 @@ const Header = () => {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setApiKey(event.target.value);
               }}
-            />
+            ></input>
             <button
               className={headerStyles["btn-secondary"]}
               onClick={() => {
