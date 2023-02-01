@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { Caveat } from "@next/font/google";
+import GPT3Tokenizer from "gpt3-tokenizer";
 
 import ParamSlider from "../../components/ParamSlider";
 import config from "../../config";
@@ -11,6 +12,8 @@ import { useApiKey } from "../../context/ApiKeyContext";
 import Dropdown from "../../components/Dropdown";
 
 const caveat = Caveat({ subsets: ["latin"] });
+
+const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
 
 type Props = {
   gpt3Models: IModelDetails[];
@@ -43,6 +46,7 @@ const Compare = ({ gpt3Models }: Props) => {
   ]);
 
   const [isCompleting, setIsCompleting] = useState<boolean>(false);
+  const [tokenCount, setTokenCount] = useState<number>(0);
 
   const updateCompareInfo = (index: number, model: ICompareInfo) => {
     setModelsToCompare((prevModels) => {
@@ -214,6 +218,10 @@ const Compare = ({ gpt3Models }: Props) => {
           placeholder="Enter you prompt here"
           value={prompt}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const encoded: { bpe: number[]; text: string[] } = tokenizer.encode(
+              event.target.value
+            );
+            setTokenCount(encoded.text.length);
             setPrompt(event.target.value);
           }}
         />
@@ -221,7 +229,7 @@ const Compare = ({ gpt3Models }: Props) => {
       <div className={styles["btn-section"]}>
         <div>
           <p className={caveat.className}>Tokens</p>
-          <div>{`${`0`}`}</div>
+          <div>{`${tokenCount}`}</div>
         </div>
         <div>
           {/* <Image src="/images/undo.png" alt="undo" width={32} height={32} />
