@@ -49,50 +49,6 @@
         position: relative;
         font-size: 14px;
         color: $font-tertiary-color;
-
-        span {
-          visibility: hidden;
-          position: absolute;
-          width: 300px;
-          background-color: $bg-secondary-color;
-          color: $font-secondary-color;
-          text-align: center;
-          padding: 5px 0;
-          box-shadow: 0px 10px 20px $font-tertiary-color;
-          border-radius: 5px;
-          z-index: 1;
-          opacity: 0;
-          transition: opacity 0.6s;
-
-          top: -15px;
-          right: 102%;
-
-          a {
-            font-weight: bold;
-            color: $accent-color;
-            text-decoration: underline;
-            cursor: pointer;
-          }
-
-          &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            margin-top: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent transparent
-              $bg-secondary-color;
-          }
-        }
-
-        &:hover {
-          span {
-            visibility: visible;
-            opacity: 1;
-          }
-        }
       }
 
       input {
@@ -111,6 +67,50 @@
 
       input::placeholder {
         color: $font-tertiary-color;
+      }
+
+      span {
+        visibility: hidden;
+        position: absolute;
+        width: 300px;
+        background-color: $bg-secondary-color;
+        color: $font-secondary-color;
+        text-align: center;
+        padding: 5px 0;
+        box-shadow: 0px 10px 20px $font-tertiary-color;
+        border-radius: 5px;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.6s;
+        font-size: 14px;
+
+        top: 10px;
+        right: calc(100% - 15px);
+
+        a {
+          font-weight: bold;
+          color: $accent-color;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 100%;
+          margin-top: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent transparent $bg-secondary-color;
+        }
+      }
+
+      &:hover {
+        span {
+          visibility: visible;
+          opacity: 1;
+        }
       }
     }
   }
