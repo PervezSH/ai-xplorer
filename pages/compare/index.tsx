@@ -4,8 +4,9 @@ import Image from "next/image";
 import { Caveat } from "@next/font/google";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
+import { gpt3Models } from "../../utils/model-data";
+
 import ParamSlider from "../../components/ParamSlider";
-import config from "../../config";
 import { IModelDetails } from "../../utils/model-data";
 import styles from "../../styles/pages/Compare.module.scss";
 import { useApiKey } from "../../context/ApiKeyContext";
@@ -332,9 +333,6 @@ const Compare = ({ gpt3Models }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`${config.url}/api/gpt3-models`);
-  const gpt3Models = await res.json();
-
   return {
     props: {
       gpt3Models,
