@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Ai-Xplorer](https://ai-xplorer.vercel.app/)
 
-## Getting Started
+[Ai-Xplorer](https://ai-xplorer.vercel.app/) is a utility tool for comparing the output, token count, credit usage, and performance of various gpt-3 models (for the time being) against one another.
 
-First, run the development server:
+Built using [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), and [OpenAI](https://openai.com/).
 
-```bash
+[Ai-Xplorer](https://ai-xplorer.vercel.app/) is deployed using [Vercel](https://vercel.com/).
+
+## Features
+
+- Compare the output, token count, credit usage, and performance of various gpt-3 models (for the time being) against one another
+- Easily pick the best model for your project based on your requirements
+- Built with modern technologies like [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), and [OpenAI](https://openai.com/)
+- Deployed on [Vercel](https://vercel.com/). for fast and reliable performance
+
+## Deployment
+
+[Ai-Xplorer](https://ai-xplorer.vercel.app/) is deployed and ready to use at https://ai-xplorer.vercel.app/.
+
+## Usage Guidelines
+
+To get started with [Ai-Xplorer](https://ai-xplorer.vercel.app/), simply enter your OpenAI API key. With the API key in place, you will be able to call the GPT-3 model and start comparing AI models.
+
+**Please note that your API key is not stored remotely. You can verify this by reviewing the code yourself. This ensures the security of your API key and allows you to use [Ai-Xplorer](https://ai-xplorer.vercel.app/) with confidence.**
+
+## Getting Started (Local Development)
+
+If you would like to run AiXplorer locally, simply clone the repository and run the following commands:
+
+```sh
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will start a development server at http://localhost:3000 where you can start comparing GPT-3 models and picking the best one for your project.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## License
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+AiXplorer is distributed under the MIT License. See the `License` file for more information.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Contributions
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you're interested in contributing to AiXplorer, feel free to open a pull request with your changes. Your contributions are greatly appreciated!
